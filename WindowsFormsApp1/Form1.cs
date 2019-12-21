@@ -17,11 +17,14 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+            SetFileInfoLenght(5);
         }
 
-        static string directorySource = @"C:\Users\FelipeN\Desktop\direct\source";
-        static string directoryDestiny = @"C:\Users\FelipeN\Desktop\direct\destiny\";
-        static string directorySent = @"C:\Users\FelipeN\Desktop\direct\source\sent\";
+        StringBuilder sb = new StringBuilder();
+
+        static string directorySource = @"C:\Users\Felipe Neves\Desktop\direct\source";
+        static string directoryDestiny = @"C:\Users\Felipe Neves\Desktop\direct\destiny\";
+        static string directorySent = @"C:\Users\Felipe Neves\Desktop\direct\source\sent\";
 
         DirectoryInfo directoryInfoSource = new DirectoryInfo(directorySource);
         DirectoryInfo directoryInfoDestiny = new DirectoryInfo(directoryDestiny);
@@ -29,6 +32,17 @@ namespace WindowsFormsApp1
         FileInfo[] historyLast;
         int count = 0;
         int totalTransferidos = 0;
+        int totalEncontrados = 0;
+
+        private void SetTotalFilesInDirectory(DirectoryInfo directory)
+        {
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                this.totalEncontrados++;
+            }
+            this.lblTotalEncontrados.Text = this.totalEncontrados.ToString();
+            this.lblTotalEncontrados.Refresh();
+        }
 
         private void Process(DirectoryInfo directory)
         {
@@ -39,6 +53,7 @@ namespace WindowsFormsApp1
                 if (ExistsInDestiny(fileSource))
                 {
                     File.Move(fileSource.FullName, directorySent + fileSource.Name);
+                    UpdateHistoryList(fileSource);
                     historyLast[ReturnSizeHistory()] = fileSource;
                     UpdatelblTotalTransferidos();
 
@@ -84,6 +99,8 @@ namespace WindowsFormsApp1
 
         public void UpdateLast(FileInfo[] files)
         {
+            this.lblListaHistorico.Text = "";
+            this.lblListaHistorico.Refresh();
             for (int i = 0; i < (files.Length - 1); i++)
             {
                 files[i] = files[(i + 1)];
@@ -97,10 +114,19 @@ namespace WindowsFormsApp1
 
         public void UpdatelblTotalTransferidos()
         {
-            this.lblTotalTransferidos.Refresh();
-            this.lblTotalTransferidos.Text = this.totalTransferidos.ToString();
             this.totalTransferidos++;
-            
+            this.lblTotalTransferidos.Refresh();
+            this.lblTotalTransferidos.Text = this.totalTransferidos.ToString();                       
+        }
+
+        public void UpdateHistoryList(FileInfo file)
+        {
+            this.lblListaHistorico.Refresh();
+            sb.Append(file.Name);
+            sb.Append(" - ");
+            sb.AppendLine(DateTime.Now.ToString());
+            this.lblListaHistorico.Text = sb.ToString();
+            sb.Clear();
         }
 
         public void UpdateTxtUltimos()
@@ -134,8 +160,22 @@ namespace WindowsFormsApp1
 
         private void btnTransferir_Click(object sender, EventArgs e)
         {
+            ResetLabelTransferidos_Encontrados();
+            SetTotalFilesInDirectory(directoryInfoSource);
             Process(directoryInfoSource);            
-            UpdateTxtUltimos();
+            UpdateTxtUltimos();            
+        }
+
+        public void ResetLabelTransferidos_Encontrados()
+        {
+            this.totalEncontrados = 0;
+            this.totalTransferidos = 0;
+        }
+       
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
