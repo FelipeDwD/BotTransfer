@@ -21,8 +21,7 @@ namespace WindowsFormsApp1
             SetFileInfoLenght(5);
         }       
 
-        StringBuilder sb = new StringBuilder();
-
+        StringBuilder sb = new StringBuilder();       
 
         static string[] lines = File.ReadAllLines(@"C:\Users\FelipeN\Desktop\BotTransfer\WindowsFormsApp1\Caminhos.txt");
 
@@ -45,11 +44,12 @@ namespace WindowsFormsApp1
         DirectoryInfo directoryInfoSource = new DirectoryInfo(directorySource);
         DirectoryInfo directoryInfoDestiny = new DirectoryInfo(directoryDestiny);
 
+
         FileInfo[] historyLast;
         int count = 0;
         int totalTransferidos = 0;
         int totalEncontrados = 0;
-        int topHistoricoUser = 0;
+        int topHistoricoUser = 5;
 
         private void SetTotalFilesInDirectory(DirectoryInfo directory)
         {
@@ -69,7 +69,7 @@ namespace WindowsFormsApp1
 
                 if (ExistsInDestiny(fileSource))
                 {
-                    File.Move(fileSource.FullName, directorySent + fileSource.Name);
+                    File.Move(fileSource.FullName, directorySent + fileSource.Name);                    
                     UpdateHistoryList(fileSource);
                     historyLast[ReturnSizeHistory()] = fileSource;
                     UpdatelblTotalTransferidos();

@@ -27,6 +27,11 @@ namespace WindowsFormsApp1.Entidades
             {
                 _diretorio_linha = value;
             }
-        }      
+        }
+
+        public override string ToString()
+        {
+            return "a";
+        }
     }
 }
