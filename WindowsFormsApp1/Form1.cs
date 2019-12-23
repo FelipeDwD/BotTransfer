@@ -22,9 +22,9 @@ namespace WindowsFormsApp1
 
         StringBuilder sb = new StringBuilder();
 
-        static string directorySource = @"C:\Users\Felipe Neves\Desktop\direct\source";
-        static string directoryDestiny = @"C:\Users\Felipe Neves\Desktop\direct\destiny\";
-        static string directorySent = @"C:\Users\Felipe Neves\Desktop\direct\source\sent\";
+        static string directorySource = @"C:\Users\FelipeN\Desktop\direct\source";
+        static string directoryDestiny = @"C:\Users\FelipeN\Desktop\direct\destiny\";
+        static string directorySent = @"C:\Users\FelipeN\Desktop\direct\source\sent\";
 
         DirectoryInfo directoryInfoSource = new DirectoryInfo(directorySource);
         DirectoryInfo directoryInfoDestiny = new DirectoryInfo(directoryDestiny);
@@ -33,6 +33,7 @@ namespace WindowsFormsApp1
         int count = 0;
         int totalTransferidos = 0;
         int totalEncontrados = 0;
+        int topHistoricoUser = 0;
 
         private void SetTotalFilesInDirectory(DirectoryInfo directory)
         {
@@ -153,6 +154,7 @@ namespace WindowsFormsApp1
 
         private void btn_Ok_Click(object sender, EventArgs e)
         {
+            this.topHistoricoUser = int.Parse(this.txtQuantidadeLista.Text.ToString());
             int registerInListRequeriedUser = int.Parse(this.txtQuantidadeLista.Text.ToString());
             SetFileInfoLenght(registerInListRequeriedUser);
             ShowMessageNotifyAmountHistory(registerInListRequeriedUser);
@@ -160,6 +162,8 @@ namespace WindowsFormsApp1
 
         private void btnTransferir_Click(object sender, EventArgs e)
         {
+            this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString();
+            this.txtQuantidadeHistorico.Refresh();
             ResetLabelTransferidos_Encontrados();
             SetTotalFilesInDirectory(directoryInfoSource);
             Process(directoryInfoSource);            
@@ -170,12 +174,8 @@ namespace WindowsFormsApp1
         {
             this.totalEncontrados = 0;
             this.totalTransferidos = 0;
-        }
-       
+        }     
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
+     
     }
 }

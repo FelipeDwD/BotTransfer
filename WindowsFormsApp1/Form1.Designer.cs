@@ -119,7 +119,7 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "/";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+          
             // 
             // lblTotalEncontrados
             // 
