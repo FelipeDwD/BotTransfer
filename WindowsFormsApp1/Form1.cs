@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Entidades;
 
 namespace WindowsFormsApp1
 {
@@ -18,13 +19,28 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             SetFileInfoLenght(5);
-        }
+        }       
 
         StringBuilder sb = new StringBuilder();
 
-        static string directorySource = @"C:\Users\FelipeN\Desktop\direct\source";
-        static string directoryDestiny = @"C:\Users\FelipeN\Desktop\direct\destiny\";
-        static string directorySent = @"C:\Users\FelipeN\Desktop\direct\source\sent\";
+
+        static string[] lines = File.ReadAllLines(@"C:\Users\FelipeN\Desktop\BotTransfer\WindowsFormsApp1\Caminhos.txt");
+
+        static string source_line = lines[0];
+        static string sent_line = lines[1];
+        static string destiny_line = lines[2];
+
+        static string[] source_breaks = source_line.Split('@');
+        static string[] sent_breaks = sent_line.Split('@');
+        static string[] destiny_breaks = destiny_line.Split('@');
+
+        static string source = source_breaks[2];
+        static string sent = sent_breaks[2];
+        static string destiny = destiny_breaks[2];
+
+        static string directorySource = $@"{source}";
+        static string directoryDestiny = $@"{destiny}";
+        static string directorySent = $@"{sent}";
 
         DirectoryInfo directoryInfoSource = new DirectoryInfo(directorySource);
         DirectoryInfo directoryInfoDestiny = new DirectoryInfo(directoryDestiny);
@@ -117,7 +133,7 @@ namespace WindowsFormsApp1
         {
             this.totalTransferidos++;
             this.lblTotalTransferidos.Refresh();
-            this.lblTotalTransferidos.Text = this.totalTransferidos.ToString();                       
+            this.lblTotalTransferidos.Text = this.totalTransferidos.ToString();
         }
 
         public void UpdateHistoryList(FileInfo file)
@@ -166,16 +182,16 @@ namespace WindowsFormsApp1
             this.txtQuantidadeHistorico.Refresh();
             ResetLabelTransferidos_Encontrados();
             SetTotalFilesInDirectory(directoryInfoSource);
-            Process(directoryInfoSource);            
-            UpdateTxtUltimos();            
+            Process(directoryInfoSource);
+            UpdateTxtUltimos();
         }
 
         public void ResetLabelTransferidos_Encontrados()
         {
             this.totalEncontrados = 0;
             this.totalTransferidos = 0;
-        }     
+        }
 
-     
+
     }
 }
