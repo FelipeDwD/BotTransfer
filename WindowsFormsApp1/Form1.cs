@@ -19,6 +19,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             SetFileInfoLenght(5);
+            System.Threading.Timer t = new System.Threading.Timer(TimerCallback, null, 60000, 60000);
         }       
 
         StringBuilder sb = new StringBuilder();       
@@ -57,8 +58,9 @@ namespace WindowsFormsApp1
             {
                 this.totalEncontrados++;
             }
-            this.lblTotalEncontrados.Text = this.totalEncontrados.ToString();
-            this.lblTotalEncontrados.Refresh();
+            Invoke(new MethodInvoker(() => this.lblTotalEncontrados.Text = this.totalEncontrados.ToString()));
+            Invoke(new MethodInvoker(() => this.lblTotalEncontrados.Refresh()));
+            
         }
 
         private void Process(DirectoryInfo directory)
@@ -116,8 +118,8 @@ namespace WindowsFormsApp1
 
         public void UpdateLast(FileInfo[] files)
         {
-            this.lblListaHistorico.Text = "";
-            this.lblListaHistorico.Refresh();
+            Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = ""));
+            Invoke(new MethodInvoker(() => this.lblListaHistorico.Refresh()));            
             for (int i = 0; i < (files.Length - 1); i++)
             {
                 files[i] = files[(i + 1)];
@@ -132,24 +134,24 @@ namespace WindowsFormsApp1
         public void UpdatelblTotalTransferidos()
         {
             this.totalTransferidos++;
-            this.lblTotalTransferidos.Refresh();
-            this.lblTotalTransferidos.Text = this.totalTransferidos.ToString();
+            Invoke(new MethodInvoker(() => this.lblTotalTransferidos.Refresh()));
+            Invoke(new MethodInvoker(() => this.lblTotalTransferidos.Text = this.totalTransferidos.ToString()));            
         }
 
         public void UpdateHistoryList(FileInfo file)
         {
-            this.lblListaHistorico.Refresh();
+            Invoke(new MethodInvoker(() => this.lblListaHistorico.Refresh()));            
             sb.Append(file.Name);
             sb.Append(" - ");
             sb.AppendLine(DateTime.Now.ToString());
-            this.lblListaHistorico.Text = sb.ToString();
+            Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = sb.ToString()));            
             sb.Clear();
         }
 
         public void UpdateTxtUltimos()
         {
-            this.lblListaHistorico.Text = "";
-            this.lblListaHistorico.Text = ReturnLast(this.historyLast);
+            Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = ""));
+            Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = ReturnLast(this.historyLast)));            
         }
 
         public void NewFileInfo(int lenght)
@@ -192,6 +194,14 @@ namespace WindowsFormsApp1
             this.totalTransferidos = 0;
         }
 
-
+        public void TimerCallback(Object o)
+        {
+            Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString()));
+            Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Refresh()));
+            ResetLabelTransferidos_Encontrados();
+            SetTotalFilesInDirectory(directoryInfoSource);
+            Process(directoryInfoSource);
+            UpdateTxtUltimos();
+        }     
     }
 }
