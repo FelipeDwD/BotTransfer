@@ -39,6 +39,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblTotalEncontrados = new System.Windows.Forms.Label();
             this.lblListaHistorico = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblUltimaTransferencia = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtQuantidadeLista
@@ -62,7 +64,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(311, 45);
+            this.label1.Location = new System.Drawing.Point(317, 98);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(258, 22);
             this.label1.TabIndex = 2;
@@ -70,7 +72,7 @@
             // 
             // lblTotalTransferidos
             // 
-            this.lblTotalTransferidos.Location = new System.Drawing.Point(550, 44);
+            this.lblTotalTransferidos.Location = new System.Drawing.Point(556, 97);
             this.lblTotalTransferidos.Name = "lblTotalTransferidos";
             this.lblTotalTransferidos.Size = new System.Drawing.Size(33, 23);
             this.lblTotalTransferidos.TabIndex = 3;
@@ -78,7 +80,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(419, 78);
+            this.label2.Location = new System.Drawing.Point(425, 131);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 19);
             this.label2.TabIndex = 4;
@@ -86,7 +88,7 @@
             // 
             // txtQuantidadeHistorico
             // 
-            this.txtQuantidadeHistorico.Location = new System.Drawing.Point(483, 78);
+            this.txtQuantidadeHistorico.Location = new System.Drawing.Point(489, 131);
             this.txtQuantidadeHistorico.Name = "txtQuantidadeHistorico";
             this.txtQuantidadeHistorico.Size = new System.Drawing.Size(100, 23);
             this.txtQuantidadeHistorico.TabIndex = 5;
@@ -95,7 +97,7 @@
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(598, 78);
+            this.label3.Location = new System.Drawing.Point(604, 131);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 19);
             this.label3.TabIndex = 6;
@@ -103,7 +105,7 @@
             // 
             // btnTransferir
             // 
-            this.btnTransferir.Location = new System.Drawing.Point(495, 331);
+            this.btnTransferir.Location = new System.Drawing.Point(501, 384);
             this.btnTransferir.Name = "btnTransferir";
             this.btnTransferir.Size = new System.Drawing.Size(212, 33);
             this.btnTransferir.TabIndex = 8;
@@ -113,17 +115,16 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(599, 45);
+            this.label4.Location = new System.Drawing.Point(605, 98);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 18);
             this.label4.TabIndex = 10;
             this.label4.Text = "/";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-          
             // 
             // lblTotalEncontrados
             // 
-            this.lblTotalEncontrados.Location = new System.Drawing.Point(638, 44);
+            this.lblTotalEncontrados.Location = new System.Drawing.Point(644, 97);
             this.lblTotalEncontrados.Name = "lblTotalEncontrados";
             this.lblTotalEncontrados.Size = new System.Drawing.Size(68, 23);
             this.lblTotalEncontrados.TabIndex = 11;
@@ -133,16 +134,34 @@
             // 
             this.lblListaHistorico.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.lblListaHistorico.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblListaHistorico.Location = new System.Drawing.Point(468, 109);
+            this.lblListaHistorico.Location = new System.Drawing.Point(474, 162);
             this.lblListaHistorico.Name = "lblListaHistorico";
             this.lblListaHistorico.Size = new System.Drawing.Size(239, 208);
             this.lblListaHistorico.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(317, 63);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(156, 15);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Última transferência feita em:";
+            // 
+            // lblUltimaTransferencia
+            // 
+            this.lblUltimaTransferencia.Location = new System.Drawing.Point(458, 63);
+            this.lblUltimaTransferencia.Name = "lblUltimaTransferencia";
+            this.lblUltimaTransferencia.Size = new System.Drawing.Size(149, 25);
+            this.lblUltimaTransferencia.TabIndex = 13;
+            this.lblUltimaTransferencia.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 377);
+            this.ClientSize = new System.Drawing.Size(724, 430);
+            this.Controls.Add(this.lblUltimaTransferencia);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblTotalEncontrados);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnTransferir);
@@ -174,6 +193,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblTotalEncontrados;
         private System.Windows.Forms.Label lblListaHistorico;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblUltimaTransferencia;
     }
 }
 

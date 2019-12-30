@@ -9,7 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApp1.Entidades;
+using WindowsFormsApp1.Apoio;
+
 
 namespace WindowsFormsApp1
 {
@@ -19,7 +20,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             SetFileInfoLenght(5);
-            System.Threading.Timer t = new System.Threading.Timer(TimerCallback, null, 60000, 60000);
+            System.Threading.Timer t = new System.Threading.Timer(TimerCallback, null, 0, 60000);
         }       
 
         StringBuilder sb = new StringBuilder();       
@@ -65,13 +66,17 @@ namespace WindowsFormsApp1
 
         private void Process(DirectoryInfo directory)
         {
+            FileTxt file = new FileTxt();
+            file.OpenNewTransferLog();
+
             foreach (FileInfo fileSource in directory.GetFiles())
             {
                 File.Copy(fileSource.FullName, directoryDestiny + fileSource.Name);
 
                 if (ExistsInDestiny(fileSource))
                 {
-                    File.Move(fileSource.FullName, directorySent + fileSource.Name);                    
+                    File.Move(fileSource.FullName, directorySent + fileSource.Name);
+                    file.RegisterTransfInLog(fileSource);
                     UpdateHistoryList(fileSource);
                     historyLast[ReturnSizeHistory()] = fileSource;
                     UpdatelblTotalTransferidos();
@@ -83,6 +88,8 @@ namespace WindowsFormsApp1
                     count++;
                 }
             }
+
+            file.CloseTransfer(count);
         }
 
         public string ReturnLast(FileInfo[] files)
@@ -196,6 +203,7 @@ namespace WindowsFormsApp1
 
         public void TimerCallback(Object o)
         {
+            Invoke(new MethodInvoker(() => this.lblUltimaTransferencia.Text = DateTime.Now.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Refresh()));
             ResetLabelTransferidos_Encontrados();
