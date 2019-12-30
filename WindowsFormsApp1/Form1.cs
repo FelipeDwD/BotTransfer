@@ -89,7 +89,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            file.CloseTransfer(count);
+            file.CloseTransfer(this.totalTransferidos);
         }
 
         public string ReturnLast(FileInfo[] files)
