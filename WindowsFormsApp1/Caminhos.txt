@@ -1,3 +1,4 @@
-@Source: @C:\Users\FelipeN\Desktop\direct\source
-@Sent: @C:\Users\FelipeN\Desktop\direct\source\sent\
-@Destiy: @C:\Users\FelipeN\Desktop\direct\destiny\
+@Origem: @C:\Users\FelipeN\Desktop\direct\source
+@Enviados: @C:\Users\FelipeN\Desktop\direct\source\sent\
+@Destino: @C:\Users\FelipeN\Desktop\direct\destiny\
+

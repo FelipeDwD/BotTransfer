@@ -19,39 +19,25 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            SetFileInfoLenght(5);
-            System.Threading.Timer t = new System.Threading.Timer(TimerCallback, null, 0, 60000);
+            SetFileInfoLenght(5);           
         }       
 
-        StringBuilder sb = new StringBuilder();       
+        StringBuilder sb = new StringBuilder();
+        static Caminho caminho = new Caminho();
 
-        static string[] lines = File.ReadAllLines(@"C:\Users\FelipeN\Desktop\BotTransfer\WindowsFormsApp1\Caminhos.txt");
+        System.Threading.Timer t;
 
-        static string source_line = lines[0];
-        static string sent_line = lines[1];
-        static string destiny_line = lines[2];
 
-        static string[] source_breaks = source_line.Split('@');
-        static string[] sent_breaks = sent_line.Split('@');
-        static string[] destiny_breaks = destiny_line.Split('@');
 
-        static string source = source_breaks[2];
-        static string sent = sent_breaks[2];
-        static string destiny = destiny_breaks[2];
-
-        static string directorySource = $@"{source}";
-        static string directoryDestiny = $@"{destiny}";
-        static string directorySent = $@"{sent}";
-
-        DirectoryInfo directoryInfoSource = new DirectoryInfo(directorySource);
-        DirectoryInfo directoryInfoDestiny = new DirectoryInfo(directoryDestiny);
+        DirectoryInfo directoryInfoSource = new DirectoryInfo(caminho.CaminhoOrigem());
+        DirectoryInfo directoryInfoDestiny = new DirectoryInfo(caminho.CaminhoDestino());         
 
 
         FileInfo[] historyLast;
         int count = 0;
         int totalTransferidos = 0;
         int totalEncontrados = 0;
-        int topHistoricoUser = 5;
+        int topHistoricoUser = 5;        
 
         private void SetTotalFilesInDirectory(DirectoryInfo directory)
         {
@@ -66,17 +52,17 @@ namespace WindowsFormsApp1
 
         private void Process(DirectoryInfo directory)
         {
-            FileTxt file = new FileTxt();
-            file.OpenNewTransferLog();
+            Log log = new Log();
+            log.OpenNewTransferLog();
 
             foreach (FileInfo fileSource in directory.GetFiles())
             {
-                File.Copy(fileSource.FullName, directoryDestiny + fileSource.Name);
+                File.Copy(fileSource.FullName, caminho.CaminhoDestino() + fileSource.Name);
 
                 if (ExistsInDestiny(fileSource))
                 {
-                    File.Move(fileSource.FullName, directorySent + fileSource.Name);
-                    file.RegisterTransfInLog(fileSource);
+                    File.Move(fileSource.FullName, caminho.CaminhoEnviados() + fileSource.Name);
+                    log.RegisterTransfInLog(fileSource);
                     UpdateHistoryList(fileSource);
                     historyLast[ReturnSizeHistory()] = fileSource;
                     UpdatelblTotalTransferidos();
@@ -89,7 +75,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            file.CloseTransfer(this.totalTransferidos);
+            log.CloseTransfer(this.totalTransferidos);
         }
 
         public string ReturnLast(FileInfo[] files)
@@ -209,7 +195,25 @@ namespace WindowsFormsApp1
             ResetLabelTransferidos_Encontrados();
             SetTotalFilesInDirectory(directoryInfoSource);
             Process(directoryInfoSource);
-            UpdateTxtUltimos();
-        }     
+            UpdateTxtUltimos();           
+        }         
+        
+
+        private void btnExecutar_Click(object sender, EventArgs e)
+        {
+            if (this.btnExecutar.Text == "Pausar")
+            {
+                t = new System.Threading.Timer(TimerCallback, null, 0, 30000);
+                MessageBox.Show("");                
+            }
+            else
+            {
+                t.Dispose();
+                MessageBox.Show("Parado com sucesso");
+                this.btnExecutar.Text = "Iniciar";
+                this.btnExecutar.Refresh();
+            }
+
+        }
     }
 }

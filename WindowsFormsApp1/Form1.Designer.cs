@@ -41,6 +41,7 @@
             this.lblListaHistorico = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblUltimaTransferencia = new System.Windows.Forms.Label();
+            this.btnExecutar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtQuantidadeLista
@@ -155,11 +156,22 @@
             this.lblUltimaTransferencia.TabIndex = 13;
             this.lblUltimaTransferencia.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // btnExecutar
+            // 
+            this.btnExecutar.Location = new System.Drawing.Point(357, 384);
+            this.btnExecutar.Name = "btnExecutar";
+            this.btnExecutar.Size = new System.Drawing.Size(116, 33);
+            this.btnExecutar.TabIndex = 14;
+            this.btnExecutar.Text = "Pausar";
+            this.btnExecutar.UseVisualStyleBackColor = true;
+            this.btnExecutar.Click += new System.EventHandler(this.btnExecutar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(724, 430);
+            this.Controls.Add(this.btnExecutar);
             this.Controls.Add(this.lblUltimaTransferencia);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblTotalEncontrados);
@@ -195,6 +207,7 @@
         private System.Windows.Forms.Label lblListaHistorico;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblUltimaTransferencia;
+        private System.Windows.Forms.Button btnExecutar;
     }
 }
 

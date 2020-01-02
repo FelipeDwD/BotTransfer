@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Apoio
 {
-    public struct FileTxt
+    public struct Log
     {
         public DateTime dayLog;
 
