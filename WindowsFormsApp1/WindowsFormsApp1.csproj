@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Apoio\Diretorio.cs" />
     <Compile Include="Apoio\Log.cs" />
+    <Compile Include="Apoio\Transferencia.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

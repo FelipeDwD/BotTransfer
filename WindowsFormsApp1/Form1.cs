@@ -15,22 +15,20 @@ namespace WindowsFormsApp1
             NewFileInfo(5);         
         }       
 
-        StringBuilder sb = new StringBuilder();
-        static Diretorio caminho = new Diretorio();
+        StringBuilder sb = new StringBuilder();        
+        Diretorio diretorio = new Diretorio();
+        Log log = new Log();
+        Transferencia transferencia = new Transferencia();
 
-        System.Threading.Timer t;
-
-
-
-        DirectoryInfo diretorioInfoOrigem = new DirectoryInfo(caminho.DiretorioOrigem());
-        DirectoryInfo diretorioInfoDestino = new DirectoryInfo(caminho.DiretorioDestino());         
+        System.Threading.Timer t;          
 
 
         FileInfo[] historyLast;
         int count = 0;
         int totalTransferidos = 0;
         int totalEncontrados = 0;
-        int topHistoricoUser = 5;        
+        int topHistoricoUser = 5;             
+        
 
         private void RecuperarTotalArquivosNoDiretorio(DirectoryInfo directory)
         {
@@ -43,18 +41,14 @@ namespace WindowsFormsApp1
             
         }
 
-        private void ExecutarTransferencia(DirectoryInfo diretorioOrigem)
+        private void ExecutarTransferencia()
         {
-            Log log = new Log();
             log.AbrirNovaTransferencia();
 
-            foreach (FileInfo arquivo in diretorioOrigem.GetFiles())
+            foreach (FileInfo arquivo in diretorio.arquivos)
             {
-                File.Copy(arquivo.FullName, caminho.DiretorioDestino() + arquivo.Name);
-
-                if (VerificarSeArquivoExisteNoDestino(arquivo))
+                if (transferencia.TransferenciaUnica(arquivo))
                 {
-                    File.Move(arquivo.FullName, caminho.DiretorioEnviados() + arquivo.Name);
                     log.RegistrarTransferenciaNoLog(arquivo);
                     AtualizarListaHistorico(arquivo);
                     historyLast[RetornarTamanhoHistorico()] = arquivo;
@@ -67,7 +61,6 @@ namespace WindowsFormsApp1
                     count++;
                 }
             }
-
             log.FecharTransferencia(this.totalTransferidos);
         }
 
@@ -92,15 +85,7 @@ namespace WindowsFormsApp1
             return sb.ToString();
         }
 
-        private bool VerificarSeArquivoExisteNoDestino(FileInfo file)
-        {
-            foreach (FileInfo files in diretorioInfoDestino.GetFiles())
-            {
-                if (files.Name.ToString().Equals(file.Name))
-                    return true;
-            }
-            return false;
-        }
+
 
         public void AtualizarUltimos(FileInfo[] files)
         {
@@ -159,17 +144,7 @@ namespace WindowsFormsApp1
             int registrosEmListaSolicitadoUsuario = int.Parse(this.txtQuantidadeLista.Text.ToString());
             NewFileInfo(registrosEmListaSolicitadoUsuario);
             ExibirMensagemAtualizacaoHistorico(registrosEmListaSolicitadoUsuario);
-        }
-
-        private void btnTransferir_Click(object sender, EventArgs e)
-        {
-            this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString();
-            this.txtQuantidadeHistorico.Refresh();
-            ResetVariaveis_totalEncontrados_totalTransferidos();
-            RecuperarTotalArquivosNoDiretorio(diretorioInfoOrigem);
-            ExecutarTransferencia(diretorioInfoOrigem);
-            AtualizarTxtUltimos();
-        }
+        }      
 
         public void ResetVariaveis_totalEncontrados_totalTransferidos()
         {
@@ -182,9 +157,8 @@ namespace WindowsFormsApp1
             Invoke(new MethodInvoker(() => this.lblUltimaTransferencia.Text = DateTime.Now.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Refresh()));
-            ResetVariaveis_totalEncontrados_totalTransferidos();
-            RecuperarTotalArquivosNoDiretorio(diretorioInfoOrigem);
-            ExecutarTransferencia(diretorioInfoOrigem);
+            ResetVariaveis_totalEncontrados_totalTransferidos();            
+            ExecutarTransferencia();
             AtualizarTxtUltimos();           
         }         
         
