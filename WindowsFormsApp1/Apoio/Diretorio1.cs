@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Apoio
 {
-    public struct Caminho
+    public struct Diretorio
     {
-        public string Caminhos(int line)
+        public string DiretoriosDocTxt(int line)
         {
             string[] lines = File.ReadAllLines(@"C:\Users\FelipeN\Desktop\BotTransfer\WindowsFormsApp1\Caminhos.txt");
             string lineFolder = lines[line];
@@ -18,21 +18,21 @@ namespace WindowsFormsApp1.Apoio
             return folder;
         }
 
-        public string CaminhoOrigem()
+        public string DiretorioOrigem()
         {
-            var origem = Caminhos(0);
+            var origem = DiretoriosDocTxt(0);
             return origem;
         }
 
-        public string CaminhoDestino()
+        public string DiretorioDestino()
         {
-            var destino = Caminhos(2);
+            var destino = DiretoriosDocTxt(2);
             return destino;
         }
 
-        public string CaminhoEnviados()
+        public string DiretorioEnviados()
         {
-            var enviados = Caminhos(1);
+            var enviados = DiretoriosDocTxt(1);
             return enviados;
         }
     }

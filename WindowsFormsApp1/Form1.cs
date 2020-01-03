@@ -23,14 +23,14 @@ namespace WindowsFormsApp1
         }       
 
         StringBuilder sb = new StringBuilder();
-        static Caminho caminho = new Caminho();
+        static Diretorio caminho = new Diretorio();
 
         System.Threading.Timer t;
 
 
 
-        DirectoryInfo directoryInfoSource = new DirectoryInfo(caminho.CaminhoOrigem());
-        DirectoryInfo directoryInfoDestiny = new DirectoryInfo(caminho.CaminhoDestino());         
+        DirectoryInfo directoryInfoSource = new DirectoryInfo(caminho.DiretorioOrigem());
+        DirectoryInfo directoryInfoDestiny = new DirectoryInfo(caminho.DiretorioDestino());         
 
 
         FileInfo[] historyLast;
@@ -57,11 +57,11 @@ namespace WindowsFormsApp1
 
             foreach (FileInfo fileSource in directory.GetFiles())
             {
-                File.Copy(fileSource.FullName, caminho.CaminhoDestino() + fileSource.Name);
+                File.Copy(fileSource.FullName, caminho.DiretorioDestino() + fileSource.Name);
 
                 if (ExistsInDestiny(fileSource))
                 {
-                    File.Move(fileSource.FullName, caminho.CaminhoEnviados() + fileSource.Name);
+                    File.Move(fileSource.FullName, caminho.DiretorioEnviados() + fileSource.Name);
                     log.RegisterTransfInLog(fileSource);
                     UpdateHistoryList(fileSource);
                     historyLast[ReturnSizeHistory()] = fileSource;
@@ -201,19 +201,18 @@ namespace WindowsFormsApp1
 
         private void btnExecutar_Click(object sender, EventArgs e)
         {
-            if (this.btnExecutar.Text == "Pausar")
+            if (this.btnExecutar.Text.Equals("Iniciar"))
             {
                 t = new System.Threading.Timer(TimerCallback, null, 0, 30000);
-                MessageBox.Show("");                
+                MessageBox.Show("Robô iniciado com sucesso");
+                this.btnExecutar.Text = "Pausar";
             }
-            else
+            else if (this.btnExecutar.Text.Equals("Pausar"))
             {
                 t.Dispose();
                 MessageBox.Show("Parado com sucesso");
-                this.btnExecutar.Text = "Iniciar";
-                this.btnExecutar.Refresh();
+                this.btnExecutar.Text = "Iniciar";              
             }
-
         }
     }
 }

@@ -35,7 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtQuantidadeHistorico = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnTransferir = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lblTotalEncontrados = new System.Windows.Forms.Label();
             this.lblListaHistorico = new System.Windows.Forms.Label();
@@ -104,16 +103,6 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "arquivos transferidos:";
             // 
-            // btnTransferir
-            // 
-            this.btnTransferir.Location = new System.Drawing.Point(501, 384);
-            this.btnTransferir.Name = "btnTransferir";
-            this.btnTransferir.Size = new System.Drawing.Size(212, 33);
-            this.btnTransferir.TabIndex = 8;
-            this.btnTransferir.Text = "Transferir";
-            this.btnTransferir.UseVisualStyleBackColor = true;
-            this.btnTransferir.Click += new System.EventHandler(this.btnTransferir_Click);
-            // 
             // label4
             // 
             this.label4.Location = new System.Drawing.Point(605, 98);
@@ -158,11 +147,11 @@
             // 
             // btnExecutar
             // 
-            this.btnExecutar.Location = new System.Drawing.Point(357, 384);
+            this.btnExecutar.Location = new System.Drawing.Point(474, 385);
             this.btnExecutar.Name = "btnExecutar";
-            this.btnExecutar.Size = new System.Drawing.Size(116, 33);
+            this.btnExecutar.Size = new System.Drawing.Size(239, 33);
             this.btnExecutar.TabIndex = 14;
-            this.btnExecutar.Text = "Pausar";
+            this.btnExecutar.Text = "Iniciar";
             this.btnExecutar.UseVisualStyleBackColor = true;
             this.btnExecutar.Click += new System.EventHandler(this.btnExecutar_Click);
             // 
@@ -176,7 +165,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblTotalEncontrados);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.btnTransferir);
             this.Controls.Add(this.lblListaHistorico);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtQuantidadeHistorico);
@@ -201,7 +189,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label txtQuantidadeHistorico;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnTransferir;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblTotalEncontrados;
         private System.Windows.Forms.Label lblListaHistorico;
