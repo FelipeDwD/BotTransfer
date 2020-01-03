@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Apoio;
 
@@ -19,7 +12,7 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            SetFileInfoLenght(5);           
+            NewFileInfo(5);         
         }       
 
         StringBuilder sb = new StringBuilder();
@@ -29,8 +22,8 @@ namespace WindowsFormsApp1
 
 
 
-        DirectoryInfo directoryInfoSource = new DirectoryInfo(caminho.DiretorioOrigem());
-        DirectoryInfo directoryInfoDestiny = new DirectoryInfo(caminho.DiretorioDestino());         
+        DirectoryInfo diretorioInfoOrigem = new DirectoryInfo(caminho.DiretorioOrigem());
+        DirectoryInfo diretorioInfoDestino = new DirectoryInfo(caminho.DiretorioDestino());         
 
 
         FileInfo[] historyLast;
@@ -39,7 +32,7 @@ namespace WindowsFormsApp1
         int totalEncontrados = 0;
         int topHistoricoUser = 5;        
 
-        private void SetTotalFilesInDirectory(DirectoryInfo directory)
+        private void RecuperarTotalArquivosNoDiretorio(DirectoryInfo directory)
         {
             foreach (FileInfo file in directory.GetFiles())
             {
@@ -50,35 +43,35 @@ namespace WindowsFormsApp1
             
         }
 
-        private void Process(DirectoryInfo directory)
+        private void ExecutarTransferencia(DirectoryInfo diretorioOrigem)
         {
             Log log = new Log();
-            log.OpenNewTransferLog();
+            log.AbrirNovaTransferencia();
 
-            foreach (FileInfo fileSource in directory.GetFiles())
+            foreach (FileInfo arquivo in diretorioOrigem.GetFiles())
             {
-                File.Copy(fileSource.FullName, caminho.DiretorioDestino() + fileSource.Name);
+                File.Copy(arquivo.FullName, caminho.DiretorioDestino() + arquivo.Name);
 
-                if (ExistsInDestiny(fileSource))
+                if (VerificarSeArquivoExisteNoDestino(arquivo))
                 {
-                    File.Move(fileSource.FullName, caminho.DiretorioEnviados() + fileSource.Name);
-                    log.RegisterTransfInLog(fileSource);
-                    UpdateHistoryList(fileSource);
-                    historyLast[ReturnSizeHistory()] = fileSource;
-                    UpdatelblTotalTransferidos();
+                    File.Move(arquivo.FullName, caminho.DiretorioEnviados() + arquivo.Name);
+                    log.RegistrarTransferenciaNoLog(arquivo);
+                    AtualizarListaHistorico(arquivo);
+                    historyLast[RetornarTamanhoHistorico()] = arquivo;
+                    AtualizarLabelTotalTransferidos();
 
                     if (count <= this.historyLast.Length)
                     {
-                        UpdateLast(this.historyLast);
+                        AtualizarUltimos(this.historyLast);
                     }
                     count++;
                 }
             }
 
-            log.CloseTransfer(this.totalTransferidos);
+            log.FecharTransferencia(this.totalTransferidos);
         }
 
-        public string ReturnLast(FileInfo[] files)
+        public string RetornarUltimos(FileInfo[] files)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -99,9 +92,9 @@ namespace WindowsFormsApp1
             return sb.ToString();
         }
 
-        private bool ExistsInDestiny(FileInfo file)
+        private bool VerificarSeArquivoExisteNoDestino(FileInfo file)
         {
-            foreach (FileInfo files in directoryInfoDestiny.GetFiles())
+            foreach (FileInfo files in diretorioInfoDestino.GetFiles())
             {
                 if (files.Name.ToString().Equals(file.Name))
                     return true;
@@ -109,7 +102,7 @@ namespace WindowsFormsApp1
             return false;
         }
 
-        public void UpdateLast(FileInfo[] files)
+        public void AtualizarUltimos(FileInfo[] files)
         {
             Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = ""));
             Invoke(new MethodInvoker(() => this.lblListaHistorico.Refresh()));            
@@ -119,19 +112,19 @@ namespace WindowsFormsApp1
             }
         }
 
-        public int ReturnSizeHistory()
+        public int RetornarTamanhoHistorico()
         {
             return this.historyLast.Length - 1;
         }
 
-        public void UpdatelblTotalTransferidos()
+        public void AtualizarLabelTotalTransferidos()
         {
             this.totalTransferidos++;
             Invoke(new MethodInvoker(() => this.lblTotalTransferidos.Refresh()));
             Invoke(new MethodInvoker(() => this.lblTotalTransferidos.Text = this.totalTransferidos.ToString()));            
         }
 
-        public void UpdateHistoryList(FileInfo file)
+        public void AtualizarListaHistorico(FileInfo file)
         {
             Invoke(new MethodInvoker(() => this.lblListaHistorico.Refresh()));            
             sb.Append(file.Name);
@@ -141,47 +134,44 @@ namespace WindowsFormsApp1
             sb.Clear();
         }
 
-        public void UpdateTxtUltimos()
+        public void AtualizarTxtUltimos()
         {
             Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = ""));
-            Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = ReturnLast(this.historyLast)));            
+            Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = RetornarUltimos(this.historyLast)));            
         }
 
         public void NewFileInfo(int lenght)
         {
             historyLast = new FileInfo[lenght];
-        }
-
-        public void SetFileInfoLenght(int lenght)
-        {
-            NewFileInfo(lenght);
             count = 0;
         }
 
-        public void ShowMessageNotifyAmountHistory(int registerInList)
+       
+
+        public void ExibirMensagemAtualizacaoHistorico(int registrosEmLista)
         {
-            MessageBox.Show($"A lista irá trazer os últimos {registerInList} somente na próxima execução");
+            MessageBox.Show($"A lista irá trazer os últimos {registrosEmLista} somente na próxima execução");
         }
 
         private void btn_Ok_Click(object sender, EventArgs e)
         {
             this.topHistoricoUser = int.Parse(this.txtQuantidadeLista.Text.ToString());
-            int registerInListRequeriedUser = int.Parse(this.txtQuantidadeLista.Text.ToString());
-            SetFileInfoLenght(registerInListRequeriedUser);
-            ShowMessageNotifyAmountHistory(registerInListRequeriedUser);
+            int registrosEmListaSolicitadoUsuario = int.Parse(this.txtQuantidadeLista.Text.ToString());
+            NewFileInfo(registrosEmListaSolicitadoUsuario);
+            ExibirMensagemAtualizacaoHistorico(registrosEmListaSolicitadoUsuario);
         }
 
         private void btnTransferir_Click(object sender, EventArgs e)
         {
             this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString();
             this.txtQuantidadeHistorico.Refresh();
-            ResetLabelTransferidos_Encontrados();
-            SetTotalFilesInDirectory(directoryInfoSource);
-            Process(directoryInfoSource);
-            UpdateTxtUltimos();
+            ResetVariaveis_totalEncontrados_totalTransferidos();
+            RecuperarTotalArquivosNoDiretorio(diretorioInfoOrigem);
+            ExecutarTransferencia(diretorioInfoOrigem);
+            AtualizarTxtUltimos();
         }
 
-        public void ResetLabelTransferidos_Encontrados()
+        public void ResetVariaveis_totalEncontrados_totalTransferidos()
         {
             this.totalEncontrados = 0;
             this.totalTransferidos = 0;
@@ -192,10 +182,10 @@ namespace WindowsFormsApp1
             Invoke(new MethodInvoker(() => this.lblUltimaTransferencia.Text = DateTime.Now.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Refresh()));
-            ResetLabelTransferidos_Encontrados();
-            SetTotalFilesInDirectory(directoryInfoSource);
-            Process(directoryInfoSource);
-            UpdateTxtUltimos();           
+            ResetVariaveis_totalEncontrados_totalTransferidos();
+            RecuperarTotalArquivosNoDiretorio(diretorioInfoOrigem);
+            ExecutarTransferencia(diretorioInfoOrigem);
+            AtualizarTxtUltimos();           
         }         
         
 

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace WindowsFormsApp1.Apoio
 {
@@ -12,7 +10,7 @@ namespace WindowsFormsApp1.Apoio
         public DateTime dayLog;
 
 
-        public void OpenNewTransferLog()
+        public void AbrirNovaTransferencia()
         {
             StringBuilder headerTransfer = new StringBuilder();
             headerTransfer.Append("\n\n\n========== Hora início: ");
@@ -26,7 +24,7 @@ namespace WindowsFormsApp1.Apoio
             }
         }
 
-        public void CloseTransfer(int totalTransf)
+        public void FecharTransferencia(int totalTransf)
         {
             StringBuilder footerTransfer = new StringBuilder();
             footerTransfer.Append("Hora término: ");
@@ -42,7 +40,7 @@ namespace WindowsFormsApp1.Apoio
 
         }
 
-        public void RegisterTransfInLog(FileInfo fileTransfer)
+        public void RegistrarTransferenciaNoLog(FileInfo fileTransfer)
         {
             using (System.IO.StreamWriter file
                 = new System.IO.StreamWriter($@"C:\Users\FelipeN\Desktop\TestFolder\{ReturnDayLog()}_LOG.txt", true))
