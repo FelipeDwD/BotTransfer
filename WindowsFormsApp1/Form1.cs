@@ -16,9 +16,9 @@ namespace WindowsFormsApp1
         }       
 
         StringBuilder sb = new StringBuilder();        
-        Diretorio diretorio = new Diretorio();
+        Diretorio diretorio;
         Log log = new Log();
-        Transferencia transferencia = new Transferencia();
+        Transferencia transferencia;
 
         System.Threading.Timer t;          
 
@@ -41,14 +41,23 @@ namespace WindowsFormsApp1
             
         }
 
+        public void InstanciarDir()
+        {
+            diretorio = new Diretorio();
+        }
+
         private void ExecutarTransferencia()
         {
+            InstanciarDir();
             log.AbrirNovaTransferencia();
 
             foreach (FileInfo arquivo in diretorio.arquivos)
             {
-                if (transferencia.TransferenciaUnica(arquivo))
+                transferencia.TransferenciaUnica(arquivo);
+
+                if (diretorio.VerificarArquivoExisteNoDestino(arquivo))
                 {
+                    transferencia.MoverParaEnviados(arquivo);
                     log.RegistrarTransferenciaNoLog(arquivo);
                     AtualizarListaHistorico(arquivo);
                     historyLast[RetornarTamanhoHistorico()] = arquivo;
@@ -61,6 +70,7 @@ namespace WindowsFormsApp1
                     count++;
                 }
             }
+            diretorio.LimparListaArquivos();
             log.FecharTransferencia(this.totalTransferidos);
         }
 
@@ -167,7 +177,9 @@ namespace WindowsFormsApp1
         {
             if (this.btnExecutar.Text.Equals("Iniciar"))
             {
-                t = new System.Threading.Timer(TimerCallback, null, 0, 30000);
+                InstanciarDir();
+                transferencia = new Transferencia(diretorio.DiretorioOrigem, diretorio.DiretorioDestino, diretorio.DiretorioEnviados);
+                t = new System.Threading.Timer(TimerCallback, null, 0, 30000);                
                 MessageBox.Show("Robô iniciado com sucesso");
                 this.btnExecutar.Text = "Pausar";
             }

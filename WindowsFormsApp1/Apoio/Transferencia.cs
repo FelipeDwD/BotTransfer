@@ -11,10 +11,10 @@ namespace WindowsFormsApp1.Apoio
     {
         private static string _origem;
         private static string _destino;
+        private static string _enviados;
 
         public Diretorio diretorio { get; set; }
-        public Log log { get; set; }
-
+        public Log log { get; set; }      
        
 
         public string Origem
@@ -35,40 +35,30 @@ namespace WindowsFormsApp1.Apoio
             }
         }
 
-        public void TransferirTodos()
+        public string Enviados
         {
-            diretorio = new Diretorio();
-            log = new Log();
-            log.AbrirNovaTransferencia();
-
-            foreach (FileInfo arquivo in diretorio.diretorioInfoOrigem.GetFiles())
+            get { return _enviados; }
+            set
             {
-                File.Copy(arquivo.FullName, diretorio.DiretorioDestino + arquivo.Name);
-
-                if (diretorio.VerificarArquivoExisteNoDestino(arquivo))
-                {
-                    File.Move(arquivo.FullName, diretorio.DiretorioEnviados() + arquivo.Name);
-                    log.RegistrarTransferenciaNoLog(arquivo);
-
-                }
+                _enviados = value;
             }
         }
 
-        public bool TransferenciaUnica(FileInfo arquivo)
-        {        
-             File.Copy(arquivo.FullName, diretorio.DiretorioDestino + arquivo.Name);
+        public Transferencia(string origem, string destino, string enviados)
+        {
+            this.Origem = origem;
+            this.Destino = destino;
+            this.Enviados = enviados;
+        }     
 
-            if (diretorio.VerificarArquivoExisteNoDestino(arquivo))
-            {
-                MoverParaEnviados(arquivo);
-                return true;
-            }
-            return false;
+        public void TransferenciaUnica(FileInfo arquivo)
+        {        
+             File.Copy(arquivo.FullName, this.Destino + arquivo.Name);           
         }
         
         public void MoverParaEnviados(FileInfo arquivo)
         {
-            File.Move(arquivo.FullName, diretorio.DiretorioEnviados() + arquivo.Name);
+            File.Move(arquivo.FullName, this.Enviados + arquivo.Name);
         }
     }
 }
