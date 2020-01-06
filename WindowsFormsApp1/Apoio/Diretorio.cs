@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Apoio
 {
@@ -70,13 +66,13 @@ namespace WindowsFormsApp1.Apoio
         public static string DiretorioDestinoStatic()
         {
             var destino = DiretoriosDocTxt(2);
-            return destino;
+            return ValidarUltimoCaractere(destino);            
         }
 
         public static string DiretorioEnviadosStatic()
         {
             var enviados = DiretoriosDocTxt(1);
-            return enviados;
+            return ValidarUltimoCaractere(enviados);           
         }
 
         public void VerificarArquivosDiretorio()
@@ -102,6 +98,16 @@ namespace WindowsFormsApp1.Apoio
         public void LimparListaArquivos()
         {
             arquivos.Clear();
+        }
+
+        public static string ValidarUltimoCaractere(string caminho)
+        {
+            bool ultimo = caminho[caminho.Length - 1].ToString().Equals(@"\");            
+
+            if(!ultimo)
+                caminho += @"\";
+
+            return caminho;
         }
     }
 }
