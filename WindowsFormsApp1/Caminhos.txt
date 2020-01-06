@@ -1,4 +1,4 @@
-@Origem: @C:\Users\Felipe Neves\Desktop\TestFolder
-@Enviados: @C:\Users\Felipe Neves\Desktop\direct\source\sent\
-@Destino: @C:\Users\Felipe Neves\Desktop\direct\source\
+@Origem: @C:\Users\FelipeN\Desktop\direct\source
+@Enviados: @C:\Users\FelipeN\Desktop\direct\source\sent\
+@Destino: @C:\Users\FelipeN\Desktop\direct\destiny\
 

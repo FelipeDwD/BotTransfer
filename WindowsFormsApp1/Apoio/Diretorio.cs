@@ -54,7 +54,7 @@ namespace WindowsFormsApp1.Apoio
 
         public static string DiretoriosDocTxt(int line)
         {
-            string[] lines = File.ReadAllLines(@"C:\Users\Felipe Neves\Desktop\BotTransfer\WindowsFormsApp1\Caminhos.txt");
+            string[] lines = File.ReadAllLines(@"C:\Users\FelipeN\Desktop\BotTransfer\WindowsFormsApp1\Caminhos.txt");
             string lineFolder = lines[line];
             string[] breaks = lineFolder.Split('@');
             string folder = breaks[2];

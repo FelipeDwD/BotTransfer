@@ -25,30 +25,29 @@ namespace WindowsFormsApp1
 
         FileInfo[] historyLast;
         int count = 0;
-        int totalTransferidos = 0;
-        int totalEncontrados = 0;
-        int topHistoricoUser = 5;             
+        int totalTransferidos = 0;       
+        int topHistoricoUser = 5;         
         
-
-        private void RecuperarTotalArquivosNoDiretorio(DirectoryInfo directory)
+        /// <summary>
+        /// Cria uma nova instância da classe diretório
+        /// </summary>
+        public void InstanciarDiretorio()
         {
-            foreach (FileInfo file in directory.GetFiles())
-            {
-                this.totalEncontrados++;
-            }
-            Invoke(new MethodInvoker(() => this.lblTotalEncontrados.Text = this.totalEncontrados.ToString()));
-            Invoke(new MethodInvoker(() => this.lblTotalEncontrados.Refresh()));
-            
-        }
-
-        public void InstanciarDir()
-        {
+            //Instancia um novo diretório.
             diretorio = new Diretorio();
+            ///Preenche a label "lblTotalEncontrados" com a quantidade total de indíces na lista "arquivos" da classe Diretorio.
+            Invoke(new MethodInvoker(() => this.lblTotalEncontrados.Text = diretorio.arquivos.Count.ToString()));
+            //Reseta a variável total transferidos.
+            totalTransferidos = 0;
         }
 
+        /// <summary>
+        /// Executa todo o processo de transferência:
+        /// Abertura no log, registros no log e fechamento no log.
+        /// </summary>
         private void ExecutarTransferencia()
-        {
-            InstanciarDir();
+        {            
+            InstanciarDiretorio();
             log.AbrirNovaTransferencia();
 
             foreach (FileInfo arquivo in diretorio.arquivos)
@@ -74,6 +73,9 @@ namespace WindowsFormsApp1
             log.FecharTransferencia(this.totalTransferidos);
         }
 
+        /// <summary>
+        /// Retorna os últimos registros
+        /// </summary>        
         public string RetornarUltimos(FileInfo[] files)
         {
             StringBuilder sb = new StringBuilder();
@@ -93,10 +95,10 @@ namespace WindowsFormsApp1
 
             }
             return sb.ToString();
-        }
-
-
-
+        }       
+        /// <summary>
+        /// Atualiza os últimos registros
+        /// </summary>        
         public void AtualizarUltimos(FileInfo[] files)
         {
             Invoke(new MethodInvoker(() => this.lblListaHistorico.Text = ""));
@@ -154,20 +156,15 @@ namespace WindowsFormsApp1
             int registrosEmListaSolicitadoUsuario = int.Parse(this.txtQuantidadeLista.Text.ToString());
             NewFileInfo(registrosEmListaSolicitadoUsuario);
             ExibirMensagemAtualizacaoHistorico(registrosEmListaSolicitadoUsuario);
-        }      
+        }   
 
-        public void ResetVariaveis_totalEncontrados_totalTransferidos()
-        {
-            this.totalEncontrados = 0;
-            this.totalTransferidos = 0;
-        }
+       
 
         public void TimerCallback(Object o)
         {
             Invoke(new MethodInvoker(() => this.lblUltimaTransferencia.Text = DateTime.Now.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString()));
-            Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Refresh()));
-            ResetVariaveis_totalEncontrados_totalTransferidos();            
+            Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Refresh()));                       
             ExecutarTransferencia();
             AtualizarTxtUltimos();           
         }         
@@ -177,9 +174,9 @@ namespace WindowsFormsApp1
         {
             if (this.btnExecutar.Text.Equals("Iniciar"))
             {
-                InstanciarDir();
+                InstanciarDiretorio();
                 transferencia = new Transferencia(diretorio.DiretorioOrigem, diretorio.DiretorioDestino, diretorio.DiretorioEnviados);
-                t = new System.Threading.Timer(TimerCallback, null, 0, 30000);                
+                t = new System.Threading.Timer(TimerCallback, null, 0, 120000);                
                 MessageBox.Show("Robô iniciado com sucesso");
                 this.btnExecutar.Text = "Pausar";
             }

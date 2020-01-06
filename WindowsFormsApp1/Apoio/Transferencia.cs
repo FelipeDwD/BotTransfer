@@ -52,13 +52,31 @@ namespace WindowsFormsApp1.Apoio
         }     
 
         public void TransferenciaUnica(FileInfo arquivo)
-        {        
-             File.Copy(arquivo.FullName, this.Destino + arquivo.Name);           
+        {
+            try
+            {
+                File.Copy(arquivo.FullName, this.Destino + arquivo.Name);
+            }
+            catch (Exception)
+            {
+
+               
+            }
+                    
         }
         
         public void MoverParaEnviados(FileInfo arquivo)
         {
-            File.Move(arquivo.FullName, this.Enviados + arquivo.Name);
+            try
+            {
+                File.Move(arquivo.FullName, this.Enviados + arquivo.Name);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
