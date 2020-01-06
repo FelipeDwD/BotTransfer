@@ -10,17 +10,22 @@ namespace WindowsFormsApp1.Apoio
         public DateTime dayLog;
 
 
-        public void AbrirNovaTransferencia()
+        public void AbrirNovaTransferencia(string origemArquivoTransferencia, string destinoArquivoTransferencia, string pastaEnviadosTransferencia)
         {
-            StringBuilder headerTransfer = new StringBuilder();
-            headerTransfer.Append("\n\n\n========== Hora início: ");
-            headerTransfer.AppendLine(ReturnCurrentTime());
-
+            StringBuilder cabecalhoTransferencia = new StringBuilder();
+            cabecalhoTransferencia.Append("\n\n\n========== Hora início: ");
+            cabecalhoTransferencia.AppendLine(ReturnCurrentTime());
+            cabecalhoTransferencia.Append("Origem: ");
+            cabecalhoTransferencia.AppendLine(origemArquivoTransferencia);
+            cabecalhoTransferencia.Append("Destino: ");
+            cabecalhoTransferencia.AppendLine(destinoArquivoTransferencia);
+            cabecalhoTransferencia.Append("Enviados: ");
+            cabecalhoTransferencia.AppendLine(pastaEnviadosTransferencia);
 
             using (System.IO.StreamWriter file
                 = new System.IO.StreamWriter($@"C:\Users\FelipeN\Desktop\TestFolder\{ReturnDayLog()}_LOG.txt", true))
             {
-                file.WriteLine($"\n\n{headerTransfer.ToString()}");
+                file.WriteLine($"\n\n{cabecalhoTransferencia.ToString()}");
             }
         }
 

@@ -48,7 +48,7 @@ namespace WindowsFormsApp1
         private void ExecutarTransferencia()
         {            
             InstanciarDiretorio();
-            log.AbrirNovaTransferencia();
+            log.AbrirNovaTransferencia(transferencia.Origem, transferencia.Destino, transferencia.Enviados);
 
             foreach (FileInfo arquivo in diretorio.arquivos)
             {
