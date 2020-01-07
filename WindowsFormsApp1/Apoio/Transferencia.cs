@@ -10,12 +10,12 @@ namespace WindowsFormsApp1.Apoio
     public class Transferencia
     {
         private static string _origem;
-        private static string _destino;
+        private static Ftp _destinoFtp;
         private static string _enviados;
 
         public Diretorio diretorio { get; set; }
-        public Log log { get; set; }      
-       
+        public Log log { get; set; }   
+
 
         public string Origem
         {
@@ -26,12 +26,12 @@ namespace WindowsFormsApp1.Apoio
             }
         }
 
-        public string Destino
+        public Ftp Destino
         {
-            get { return _destino; }
+            get { return _destinoFtp; }
             set
             {
-                _destino = value;
+                _destinoFtp = value;
             }
         }
 
@@ -44,7 +44,7 @@ namespace WindowsFormsApp1.Apoio
             }
         }
 
-        public Transferencia(string origem, string destino, string enviados)
+        public Transferencia(string origem, Ftp destino, string enviados)
         {
             this.Origem = origem;
             this.Destino = destino;
@@ -60,9 +60,8 @@ namespace WindowsFormsApp1.Apoio
             catch (Exception)
             {
 
-               
+
             }
-                    
         }
         
         public void MoverParaEnviados(FileInfo arquivo)

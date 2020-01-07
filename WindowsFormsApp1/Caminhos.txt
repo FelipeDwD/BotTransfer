@@ -1,4 +1,7 @@
 @Origem: @C:\Users\FelipeN\Desktop\direct\source
 @Enviados: @C:\Users\FelipeN\Desktop\direct\source\sent
-@Destino: @C:\Users\FelipeN\Desktop\direct\destiny
+@Destino:
+   @UrlFtp: @ftp02.novapontocom.com.br
+   @UsuárioFtp: @88_jm
+   @SenhaFtp: @TEdANzNYZHY2Nw==
 
