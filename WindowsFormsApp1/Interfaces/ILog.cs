@@ -2,5 +2,8 @@
 {
     public interface ILog
     {
+        void AbrirNovoLog();
+        void RegistrarTransferencia();
+        void EncerrarLog();
     }
 }

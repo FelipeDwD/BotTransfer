@@ -2,5 +2,7 @@
 {
     public interface IDiretorio
     {
+        void VerificarArquivosExistentes();
+        string ValidarUltimoCaractere(string caminho);
     }
 }
