@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Renci.SshNet;
+using System.Collections.Generic;
 using System.IO;
 
 namespace WindowsFormsApp1.Apoio
@@ -27,7 +28,7 @@ namespace WindowsFormsApp1.Apoio
             set
             {
                 _diretorioDestino = value;
-            }
+            }            
         }
 
         public string DiretorioOrigem
@@ -58,7 +59,7 @@ namespace WindowsFormsApp1.Apoio
         }
 
         public static string DiretorioOrigemStatic()
-        {
+        {       
             var origem = DiretoriosDocTxt(0);
             return origem;
         }
