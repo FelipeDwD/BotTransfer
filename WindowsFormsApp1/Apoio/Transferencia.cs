@@ -10,7 +10,7 @@ namespace WindowsFormsApp1.Apoio
     public class Transferencia
     {
         private static string _origem;
-        private static Ftp _destinoFtp;
+        private static string _destino;
         private static string _enviados;
 
         public Diretorio diretorio { get; set; }
@@ -25,13 +25,13 @@ namespace WindowsFormsApp1.Apoio
                 _origem = value;
             }
         }
-
-        public Ftp Destino
+        
+        public string Destino
         {
-            get { return _destinoFtp; }
+            get { return _destino; }
             set
             {
-                _destinoFtp = value;
+                _destino = value;
             }
         }
 
@@ -44,7 +44,7 @@ namespace WindowsFormsApp1.Apoio
             }
         }
 
-        public Transferencia(string origem, Ftp destino, string enviados)
+        public Transferencia(string origem, string destino, string enviados)
         {
             this.Origem = origem;
             this.Destino = destino;

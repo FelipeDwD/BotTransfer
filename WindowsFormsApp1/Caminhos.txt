@@ -1,7 +1,18 @@
-@Origem: @C:\Users\FelipeN\Desktop\direct\source
-@Enviados: @C:\Users\FelipeN\Desktop\direct\source\sent
-@Destino:
-   @UrlFtp: @ftp02.novapontocom.com.br
-   @UsuárioFtp: @88_jm
-   @SenhaFtp: @TEdANzNYZHY2Nw==
+@Origem: @
+@Enviados: @
+@Destino: @
 
+
+
+
+           ::::::::::::::::        LEIA-ME     ::::::::::::::::
+
+Coloque o caminho de suas respectivas pastas do lado do caractere especial "@"
+
+Exemplo: 
+
+@Origem: @sua\pasta\origem
+@Enviados: @sua\pasta\back-up
+@Destino: @sua\pasta\destino
+
+Não apague o caractere @, ele é usado para fins de identificação no robô de transferência.
