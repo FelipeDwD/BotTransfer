@@ -176,7 +176,7 @@ namespace WindowsFormsApp1
             {
                 InstanciarDiretorio();
                 transferencia = new Transferencia(diretorio.DiretorioOrigem, diretorio.DiretorioDestino, diretorio.DiretorioEnviados);
-                t = new System.Threading.Timer(TimerCallback, null, 0, 120000);                
+                t = new System.Threading.Timer(TimerCallback, null, 0, 120000);                 
                 MessageBox.Show("Robô iniciado com sucesso");
                 this.btnExecutar.Text = "Pausar";
             }
@@ -186,6 +186,21 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Parado com sucesso");
                 this.btnExecutar.Text = "Iniciar";              
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblListaHistorico_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
