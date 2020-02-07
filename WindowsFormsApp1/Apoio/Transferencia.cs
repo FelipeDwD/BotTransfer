@@ -14,8 +14,7 @@ namespace WindowsFormsApp1.Apoio
         private static string _enviados;
 
         public Diretorio diretorio { get; set; }
-        public Log log { get; set; }   
-
+        public Log log { get; set; }
 
         public string Origem
         {
@@ -57,10 +56,9 @@ namespace WindowsFormsApp1.Apoio
             {
                 File.Copy(arquivo.FullName, this.Destino + arquivo.Name);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-
+                Console.WriteLine(ex.Message.ToString());
             }
         }
         

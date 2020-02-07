@@ -6,79 +6,48 @@ namespace WindowsFormsApp1.Apoio
 {
     public class Diretorio
     {
-        private string _diretorioDestino { get; set; }
-        private string _diretorioOrigem { get; set; }
-        public string _diretorioEnviados { get; set; }
-        public DirectoryInfo diretorioInfoOrigem { get; set; } = new DirectoryInfo(DiretorioOrigemStatic());
-        public DirectoryInfo diretorioInfoDestino { get; set; } = new DirectoryInfo(DiretorioDestinoStatic());
+        private static string _origem { get; set; }
+        public static string _destino { get; set; }
+        public string BackUp { get; set; }
+
+        public DirectoryInfo InfoOrigem { get; set; }
+        public DirectoryInfo InfoDestino { get; set; }       
 
         public List<FileInfo> arquivos { get; set; } = new List<FileInfo>();
 
-        public Diretorio()
+        public Diretorio(string origem, string destino, string backup)
         {
-            VerificarArquivosDiretorio();
-            this.DiretorioOrigem = DiretorioOrigemStatic();
-            this.DiretorioDestino = DiretorioDestinoStatic();
-            this.DiretorioEnviados = DiretorioEnviadosStatic();
+            this.Origem = origem;
+            this.Destino = destino;
+            this.BackUp = backup;
+            this.InfoOrigem = new DirectoryInfo(_origem);
+            this.InfoDestino = new DirectoryInfo(_destino);
+            this.AjustaDestinoPath();
+            this.AjustaBackupPath();
+            this.VerificarArquivosDiretorio();            
         }
-
-        public string DiretorioDestino
+        
+        public string Origem
         {
-            get { return _diretorioDestino; }
+            get => _origem;
             set
             {
-                _diretorioDestino = value;
-            }            
-        }
-
-        public string DiretorioOrigem
-        {
-            get { return _diretorioOrigem; }
-            set
-            {
-                _diretorioOrigem = value;
+                _origem = value;
             }
         }
 
-        public string DiretorioEnviados
+        public string Destino
         {
-            get { return _diretorioEnviados; }
+            get => _destino;
             set
             {
-                _diretorioEnviados = value;
+                _destino = value;
             }
-        }
-
-        public static string DiretoriosDocTxt(int line)
-        {
-            string[] lines = File.ReadAllLines(@"C:\Users\FelipeN\Desktop\BotTransfer\WindowsFormsApp1\Caminhos.txt");
-            string lineFolder = lines[line];
-            string[] breaks = lineFolder.Split('@');
-            string folder = breaks[2];
-            return folder;
-        }
-
-        public static string DiretorioOrigemStatic()
-        {       
-            var origem = DiretoriosDocTxt(0);
-            return origem;
-        }
-
-        public static string DiretorioDestinoStatic()
-        {
-            var destino = DiretoriosDocTxt(2);
-            return ValidarUltimoCaractere(destino);            
-        }
-
-        public static string DiretorioEnviadosStatic()
-        {
-            var enviados = DiretoriosDocTxt(1);
-            return ValidarUltimoCaractere(enviados);           
         }
 
         public void VerificarArquivosDiretorio()
         {
-            foreach (FileInfo arquivo in diretorioInfoOrigem.GetFiles())
+            foreach (FileInfo arquivo in InfoOrigem.GetFiles())
             {
                 arquivos.Add(arquivo);
             }
@@ -86,7 +55,7 @@ namespace WindowsFormsApp1.Apoio
 
         public bool VerificarArquivoExisteNoDestino(FileInfo file)
         {
-            foreach (FileInfo files in diretorioInfoDestino.GetFiles())
+            foreach (FileInfo files in InfoDestino.GetFiles())
             {
                 if (files.Name.ToString().Equals(file.Name))
                 {
@@ -100,15 +69,15 @@ namespace WindowsFormsApp1.Apoio
         {
             arquivos.Clear();
         }
-
-        public static string ValidarUltimoCaractere(string caminho)
+        
+        private void AjustaDestinoPath()
         {
-            bool ultimo = caminho[caminho.Length - 1].ToString().Equals(@"\");            
+            this.Destino += @"\";
+        }
 
-            if(!ultimo)
-                caminho += @"\";
-
-            return caminho;
+        private void AjustaBackupPath()
+        {
+            this.BackUp += @"\";
         }
     }
 }

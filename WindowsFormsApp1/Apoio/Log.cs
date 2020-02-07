@@ -5,25 +5,30 @@ using System.Text;
 
 namespace WindowsFormsApp1.Apoio
 {
-    public struct Log
+    public class Log
     {
         public DateTime dayLog;
+        public string Diretorio { get; set; }
 
+        public Log(string diretorio)
+        {
+            this.Diretorio = diretorio;
+        }
 
         public void AbrirNovaTransferencia(string origemArquivoTransferencia, string destinoArquivoTransferencia, string pastaEnviadosTransferencia)
         {
             StringBuilder cabecalhoTransferencia = new StringBuilder();
-            cabecalhoTransferencia.Append("\n\n\n========== Hora início: ");
+            cabecalhoTransferencia.Append("\n\n\n\n:: :: :: :: :: :: :: :: Hora início: ");
             cabecalhoTransferencia.AppendLine(ReturnCurrentTime());
             cabecalhoTransferencia.Append("Origem: ");
             cabecalhoTransferencia.AppendLine(origemArquivoTransferencia);
             cabecalhoTransferencia.Append("Destino: ");
             cabecalhoTransferencia.AppendLine(destinoArquivoTransferencia);
-            cabecalhoTransferencia.Append("Enviados: ");
+            cabecalhoTransferencia.Append("Back-up: ");
             cabecalhoTransferencia.AppendLine(pastaEnviadosTransferencia);
 
             using (System.IO.StreamWriter file
-                = new System.IO.StreamWriter($@"C:\Users\FelipeN\Desktop\TestFolder\{ReturnDayLog()}_LOG.txt", true))
+                = new System.IO.StreamWriter($@"{this.Diretorio}\{ReturnDayLog()}_LOG.txt", true))
             {
                 file.WriteLine($"\n\n{cabecalhoTransferencia.ToString()}");
             }
@@ -38,7 +43,7 @@ namespace WindowsFormsApp1.Apoio
             footerTransfer.AppendLine(totalTransf.ToString());
 
             using (System.IO.StreamWriter file
-                = new System.IO.StreamWriter($@"C:\Users\FelipeN\Desktop\TestFolder\{ReturnDayLog()}_LOG.txt", true))
+                = new System.IO.StreamWriter($@"{this.Diretorio}\{ReturnDayLog()}_LOG.txt", true))
             {
                 file.WriteLine($"\n\n{footerTransfer.ToString()}");
             }
@@ -48,7 +53,7 @@ namespace WindowsFormsApp1.Apoio
         public void RegistrarTransferenciaNoLog(FileInfo fileTransfer)
         {
             using (System.IO.StreamWriter file
-                = new System.IO.StreamWriter($@"C:\Users\FelipeN\Desktop\TestFolder\{ReturnDayLog()}_LOG.txt", true))
+                = new System.IO.StreamWriter($@"{this.Diretorio}\{ReturnDayLog()}_LOG.txt", true))
             {
                 file.WriteLine($"\n {fileTransfer.Name} - {fileTransfer.Length} bytes :: {ReturnCurrentTime()}");
             }
