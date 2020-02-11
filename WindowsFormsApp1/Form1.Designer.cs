@@ -66,6 +66,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtHistorico = new System.Windows.Forms.TextBox();
             this.btnLimpar = new System.Windows.Forms.Button();
+            this.lblProximaExecucao = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lblHoraInicio = new System.Windows.Forms.Label();
             this.Diretorios.SuspendLayout();
             this.Historico.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -364,6 +368,10 @@
             // 
             // Tempo
             // 
+            this.Tempo.Controls.Add(this.label13);
+            this.Tempo.Controls.Add(this.lblHoraInicio);
+            this.Tempo.Controls.Add(this.label12);
+            this.Tempo.Controls.Add(this.lblProximaExecucao);
             this.Tempo.Controls.Add(this.btnTime);
             this.Tempo.Controls.Add(this.label7);
             this.Tempo.Controls.Add(this.nmcTime);
@@ -416,6 +424,37 @@
             this.btnLimpar.Text = "Limpar Histórico";
             this.btnLimpar.UseVisualStyleBackColor = true;
             this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
+            // 
+            // lblProximaExecucao
+            // 
+            this.lblProximaExecucao.Location = new System.Drawing.Point(619, 16);
+            this.lblProximaExecucao.Name = "lblProximaExecucao";
+            this.lblProximaExecucao.Size = new System.Drawing.Size(161, 23);
+            this.lblProximaExecucao.TabIndex = 38;
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(523, 19);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(100, 23);
+            this.label12.TabIndex = 39;
+            this.label12.Text = "Próxima execução:";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(292, 22);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(43, 23);
+            this.label13.TabIndex = 41;
+            this.label13.Text = "Início:";
+            // 
+            // lblHoraInicio
+            // 
+            this.lblHoraInicio.Location = new System.Drawing.Point(330, 19);
+            this.lblHoraInicio.Name = "lblHoraInicio";
+            this.lblHoraInicio.Size = new System.Drawing.Size(161, 23);
+            this.lblHoraInicio.TabIndex = 40;
             // 
             // Form1
             // 
@@ -481,6 +520,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtHistorico;
         private System.Windows.Forms.Button btnLimpar;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblProximaExecucao;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblHoraInicio;
     }
 }
 

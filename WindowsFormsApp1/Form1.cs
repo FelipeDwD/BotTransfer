@@ -36,6 +36,18 @@ namespace WindowsFormsApp1
         /// </summary>
         int intervaloMilisegundos = 0;
 
+        /// <summary>
+        /// Variável armazena o intervalo de transferência em minutos
+        /// </summary>
+        int intervaloMinutos = 0;
+
+
+        /// <summary>
+        /// Variável armazena a hora de início da primeira transferência.
+        /// </summary>
+        DateTime horaInicio;      
+
+
         StringBuilder sb = new StringBuilder();
         Diretorio diretorio;
         Log log;
@@ -90,6 +102,7 @@ namespace WindowsFormsApp1
                     count++;
                 }
             }
+            IntervaloTransferencia();
             diretorio.LimparListaArquivos();
             log.FecharTransferencia(this.totalTransferidos);
         }
@@ -162,9 +175,7 @@ namespace WindowsFormsApp1
         {
             historyLast = new FileInfo[lenght];
             count = 0;
-        }
-
-
+        }        
 
         public void ExibirMensagemAtualizacaoHistorico(int registrosEmLista)
         {
@@ -200,6 +211,7 @@ namespace WindowsFormsApp1
                     InstanciarDiretorio();
                     transferencia = new Transferencia(diretorio.Origem, diretorio.Destino, diretorio.BackUp);
                     t = new System.Threading.Timer(TimerCallback, null, 0, this.intervaloMilisegundos);
+                    this.InicioTransferencia();
                     MessageBox.Show("Robô iniciado com sucesso");
                     this.BloquearBotoes();
                     this.btnExecutar.Text = "Pausar";
@@ -287,8 +299,6 @@ namespace WindowsFormsApp1
             txtLogCaminho.Text = diretorioLog;
         }
 
-
-
         private void btnTime_Click(object sender, EventArgs e)
         {
             int minutos = int.Parse(nmcTime.Value.ToString());
@@ -297,11 +307,30 @@ namespace WindowsFormsApp1
             MessageBox.Show($"Robô programado para transferir a cada {minutos} minutos.");
         }
 
+        public void InicioTransferencia()
+        {
+            horaInicio = DateTime.Now;
+            Invoke(new MethodInvoker(() => lblHoraInicio.Text = horaInicio.ToString()));            
+        }
+
+        public void IntervaloTransferencia()
+        {
+            this.MilisegundosToMinuto(this.intervaloMilisegundos);
+            DateTime horarioProximaTransferencia = horaInicio.AddMinutes(this.intervaloMinutos);
+            Invoke(new MethodInvoker(() => lblProximaExecucao.Text = horarioProximaTransferencia.ToString()));
+            Invoke(new MethodInvoker(() => lblProximaExecucao.Refresh()));
+        }
 
         private void MinutoToMiliSegundos(int minutos)
         {
             int milisegundos = minutos * 60000;
             this.intervaloMilisegundos = milisegundos;
+        }
+
+        private void MilisegundosToMinuto(int milisegundos)
+        {
+            int minuto = milisegundos / 60000;
+            this.intervaloMinutos = minuto;
         }
 
         private void BloquearBotoes()
@@ -327,6 +356,11 @@ namespace WindowsFormsApp1
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             txtHistorico.Text = "Nenhum registro a ser exibido.";
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

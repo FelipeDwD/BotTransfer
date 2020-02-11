@@ -1,5 +1,4 @@
-﻿using Renci.SshNet;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace WindowsFormsApp1.Apoio
