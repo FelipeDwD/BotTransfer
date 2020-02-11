@@ -45,7 +45,12 @@ namespace WindowsFormsApp1
         /// <summary>
         /// Variável armazena a hora de início da primeira transferência.
         /// </summary>
-        DateTime horaInicio;      
+        DateTime horaInicio;
+
+        /// <summary>
+        /// Variável armazena o horário da próxima transferência
+        /// </summary>
+        DateTime horarioProximaTransferencia;
 
 
         StringBuilder sb = new StringBuilder();
@@ -102,7 +107,7 @@ namespace WindowsFormsApp1
                     count++;
                 }
             }
-            IntervaloTransferencia();
+            
             diretorio.LimparListaArquivos();
             log.FecharTransferencia(this.totalTransferidos);
         }
@@ -197,6 +202,7 @@ namespace WindowsFormsApp1
             Invoke(new MethodInvoker(() => this.lblUltimaTransferencia.Text = DateTime.Now.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Text = this.topHistoricoUser.ToString()));
             Invoke(new MethodInvoker(() => this.txtQuantidadeHistorico.Refresh()));
+            IntervaloTransferencia();
             ExecutarTransferencia();
             AtualizarTxtUltimos();
         }
@@ -208,10 +214,10 @@ namespace WindowsFormsApp1
             {
                 if (CaminhosFornecidos())
                 {
+                    this.InicioTransferencia();
                     InstanciarDiretorio();
                     transferencia = new Transferencia(diretorio.Origem, diretorio.Destino, diretorio.BackUp);
-                    t = new System.Threading.Timer(TimerCallback, null, 0, this.intervaloMilisegundos);
-                    this.InicioTransferencia();
+                    t = new System.Threading.Timer(TimerCallback, null, 0, this.intervaloMilisegundos);                    
                     MessageBox.Show("Robô iniciado com sucesso");
                     this.BloquearBotoes();
                     this.btnExecutar.Text = "Pausar";
@@ -310,15 +316,15 @@ namespace WindowsFormsApp1
         public void InicioTransferencia()
         {
             horaInicio = DateTime.Now;
-            Invoke(new MethodInvoker(() => lblHoraInicio.Text = horaInicio.ToString()));            
+            Invoke(new MethodInvoker(() => lblHoraInicio.Text = horaInicio.ToString()));
+            this.horarioProximaTransferencia = this.horaInicio;
         }
 
         public void IntervaloTransferencia()
         {
             this.MilisegundosToMinuto(this.intervaloMilisegundos);
-            DateTime horarioProximaTransferencia = horaInicio.AddMinutes(this.intervaloMinutos);
-            Invoke(new MethodInvoker(() => lblProximaExecucao.Text = horarioProximaTransferencia.ToString()));
-            Invoke(new MethodInvoker(() => lblProximaExecucao.Refresh()));
+            this.horarioProximaTransferencia = this.horarioProximaTransferencia.AddMinutes(this.intervaloMinutos);
+            Invoke(new MethodInvoker(() => lblProximaExecucao.Text = this.horarioProximaTransferencia.ToString()));
         }
 
         private void MinutoToMiliSegundos(int minutos)

@@ -333,9 +333,9 @@
             this.Historico.Controls.Add(this.label2);
             this.Historico.Controls.Add(this.txtQuantidadeHistorico);
             this.Historico.Controls.Add(this.label3);
-            this.Historico.Location = new System.Drawing.Point(15, 344);
+            this.Historico.Location = new System.Drawing.Point(12, 344);
             this.Historico.Name = "Historico";
-            this.Historico.Size = new System.Drawing.Size(783, 414);
+            this.Historico.Size = new System.Drawing.Size(786, 414);
             this.Historico.TabIndex = 31;
             this.Historico.TabStop = false;
             this.Historico.Text = "Histórico";
@@ -427,7 +427,7 @@
             // 
             // lblProximaExecucao
             // 
-            this.lblProximaExecucao.Location = new System.Drawing.Point(619, 16);
+            this.lblProximaExecucao.Location = new System.Drawing.Point(619, 22);
             this.lblProximaExecucao.Name = "lblProximaExecucao";
             this.lblProximaExecucao.Size = new System.Drawing.Size(161, 23);
             this.lblProximaExecucao.TabIndex = 38;
@@ -443,7 +443,7 @@
             // 
             // label13
             // 
-            this.label13.Location = new System.Drawing.Point(292, 22);
+            this.label13.Location = new System.Drawing.Point(279, 19);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(43, 23);
             this.label13.TabIndex = 41;
@@ -451,9 +451,9 @@
             // 
             // lblHoraInicio
             // 
-            this.lblHoraInicio.Location = new System.Drawing.Point(330, 19);
+            this.lblHoraInicio.Location = new System.Drawing.Point(328, 19);
             this.lblHoraInicio.Name = "lblHoraInicio";
-            this.lblHoraInicio.Size = new System.Drawing.Size(161, 23);
+            this.lblHoraInicio.Size = new System.Drawing.Size(158, 23);
             this.lblHoraInicio.TabIndex = 40;
             // 
             // Form1
