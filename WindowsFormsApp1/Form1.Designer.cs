@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.txtQuantidadeLista = new System.Windows.Forms.TextBox();
             this.btn_Ok = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,17 +60,17 @@
             this.fbdLog = new System.Windows.Forms.FolderBrowserDialog();
             this.Diretorios = new System.Windows.Forms.GroupBox();
             this.Historico = new System.Windows.Forms.GroupBox();
+            this.btnLimpar = new System.Windows.Forms.Button();
+            this.txtHistorico = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.nmcTime = new System.Windows.Forms.NumericUpDown();
             this.Tempo = new System.Windows.Forms.GroupBox();
-            this.btnTime = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtHistorico = new System.Windows.Forms.TextBox();
-            this.btnLimpar = new System.Windows.Forms.Button();
-            this.lblProximaExecucao = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lblHoraInicio = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblProximaExecucao = new System.Windows.Forms.Label();
+            this.btnTime = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.Diretorios.SuspendLayout();
             this.Historico.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -340,6 +341,29 @@
             this.Historico.TabStop = false;
             this.Historico.Text = "Histórico";
             // 
+            // btnLimpar
+            // 
+            this.btnLimpar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimpar.Location = new System.Drawing.Point(626, 354);
+            this.btnLimpar.Name = "btnLimpar";
+            this.btnLimpar.Size = new System.Drawing.Size(115, 41);
+            this.btnLimpar.TabIndex = 19;
+            this.btnLimpar.Text = "Limpar Histórico";
+            this.btnLimpar.UseVisualStyleBackColor = true;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
+            // 
+            // txtHistorico
+            // 
+            this.txtHistorico.Location = new System.Drawing.Point(67, 82);
+            this.txtHistorico.Multiline = true;
+            this.txtHistorico.Name = "txtHistorico";
+            this.txtHistorico.ReadOnly = true;
+            this.txtHistorico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtHistorico.Size = new System.Drawing.Size(553, 313);
+            this.txtHistorico.TabIndex = 18;
+            this.txtHistorico.Text = "Nenhum registro a ser exibido.";
+            this.txtHistorico.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lblTotalEncontrados);
@@ -382,6 +406,37 @@
             this.Tempo.TabStop = false;
             this.Tempo.Text = "Tempo de execução";
             // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(279, 19);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(43, 23);
+            this.label13.TabIndex = 41;
+            this.label13.Text = "Início:";
+            // 
+            // lblHoraInicio
+            // 
+            this.lblHoraInicio.Location = new System.Drawing.Point(328, 19);
+            this.lblHoraInicio.Name = "lblHoraInicio";
+            this.lblHoraInicio.Size = new System.Drawing.Size(158, 23);
+            this.lblHoraInicio.TabIndex = 40;
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(523, 19);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(100, 23);
+            this.label12.TabIndex = 39;
+            this.label12.Text = "Próxima execução:";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
+            // 
+            // lblProximaExecucao
+            // 
+            this.lblProximaExecucao.Location = new System.Drawing.Point(619, 22);
+            this.lblProximaExecucao.Name = "lblProximaExecucao";
+            this.lblProximaExecucao.Size = new System.Drawing.Size(161, 23);
+            this.lblProximaExecucao.TabIndex = 38;
+            // 
             // btnTime
             // 
             this.btnTime.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -402,60 +457,6 @@
             this.label7.TabIndex = 35;
             this.label7.Text = "min.";
             // 
-            // txtHistorico
-            // 
-            this.txtHistorico.Location = new System.Drawing.Point(67, 82);
-            this.txtHistorico.Multiline = true;
-            this.txtHistorico.Name = "txtHistorico";
-            this.txtHistorico.ReadOnly = true;
-            this.txtHistorico.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtHistorico.Size = new System.Drawing.Size(553, 313);
-            this.txtHistorico.TabIndex = 18;
-            this.txtHistorico.Text = "Nenhum registro a ser exibido.";
-            this.txtHistorico.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnLimpar
-            // 
-            this.btnLimpar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpar.Location = new System.Drawing.Point(626, 354);
-            this.btnLimpar.Name = "btnLimpar";
-            this.btnLimpar.Size = new System.Drawing.Size(115, 41);
-            this.btnLimpar.TabIndex = 19;
-            this.btnLimpar.Text = "Limpar Histórico";
-            this.btnLimpar.UseVisualStyleBackColor = true;
-            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
-            // 
-            // lblProximaExecucao
-            // 
-            this.lblProximaExecucao.Location = new System.Drawing.Point(619, 22);
-            this.lblProximaExecucao.Name = "lblProximaExecucao";
-            this.lblProximaExecucao.Size = new System.Drawing.Size(161, 23);
-            this.lblProximaExecucao.TabIndex = 38;
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(523, 19);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(100, 23);
-            this.label12.TabIndex = 39;
-            this.label12.Text = "Próxima execução:";
-            this.label12.Click += new System.EventHandler(this.label12_Click);
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(279, 19);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(43, 23);
-            this.label13.TabIndex = 41;
-            this.label13.Text = "Início:";
-            // 
-            // lblHoraInicio
-            // 
-            this.lblHoraInicio.Location = new System.Drawing.Point(328, 19);
-            this.lblHoraInicio.Name = "lblHoraInicio";
-            this.lblHoraInicio.Size = new System.Drawing.Size(158, 23);
-            this.lblHoraInicio.TabIndex = 40;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,7 +467,10 @@
             this.Controls.Add(this.Historico);
             this.Controls.Add(this.Diretorios);
             this.Controls.Add(this.btnExecutar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Transferência de arquivos XML";
             this.Diretorios.ResumeLayout(false);
             this.Diretorios.PerformLayout();

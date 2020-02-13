@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
             NewFileInfo(5);
             MinutoToMiliSegundos(2);
+            this.MaximizeBox = false;
         }
 
         /// <summary>
